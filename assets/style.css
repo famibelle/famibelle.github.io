@@ -11,11 +11,18 @@
   --measure:    46rem;
   --gap:        1.9rem;
 
+  color-scheme: light;
+
   --font-body:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* Thème sombre. Deux portes d'entrée, volontairement dupliquées :
+   - la préférence système, sauf si l'utilisateur a explicitement choisi « clair » ;
+   - l'attribut data-theme="dark" posé par le sélecteur (voir index.html).
+   Toute nouvelle couleur doit être déclarée dans les deux blocs. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --ink:       #ededed;
     --ink-soft:  #b4b4bb;
     --ink-faint: #8f8f98;
@@ -23,6 +30,16 @@
     --rule:      #2c2c31;
     --accent:    #7aa2f7;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink:       #ededed;
+  --ink-soft:  #b4b4bb;
+  --ink-faint: #8f8f98;
+  --paper:     #131316;
+  --rule:      #2c2c31;
+  --accent:    #7aa2f7;
 }
 
 * { box-sizing: border-box; }
@@ -257,6 +274,54 @@ section > p { margin: 0; }
 }
 
 /* ── Petits écrans ──────────────────────────────────── */
+
+/* Sélecteur de thème. Épinglé en haut à droite, masqué à l'impression
+   (print.css). Les deux icônes coexistent dans le bouton ; le CSS n'en
+   révèle qu'une, celle de l'action à venir. */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+/* Thème clair actif : on propose le passage au sombre (lune). */
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun  { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 @media (max-width: 34rem) {
   .cv { padding-top: 2.25rem; }

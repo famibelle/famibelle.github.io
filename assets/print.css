@@ -6,6 +6,24 @@
   margin: 14mm 15mm;
 }
 
+/* Le papier est blanc quoi qu'il arrive : on rétablit la palette claire même si
+   le thème sombre est actif à l'écran. Les sélecteurs reprennent la spécificité
+   des blocs sombres de style.css, sans quoi ils ne l'emporteraient pas. */
+:root,
+:root:not([data-theme="light"]),
+:root[data-theme="dark"] {
+  color-scheme: light;
+  --ink:       #000;
+  --ink-soft:  #333;
+  --ink-faint: #555;
+  --paper:     #fff;
+  --rule:      #ccc;
+  --accent:    #000;
+}
+
+/* Le sélecteur de thème n'a aucun sens sur le papier. */
+.theme-toggle { display: none; }
+
 body {
   background: #fff;
   color: #000;

@@ -59,8 +59,8 @@ silencieusement.
   volume de commits réels de l'auteur, bots exclus (`git shortlog -sn --all`).
 - **Les dates vont dans `<time datetime="AAAA-MM">`.**
 - **Compétences et langues utilisent `dl.skills`** (paires `dt`/`dd`), pas des listes.
-- **Toutes les couleurs passent par les variables de `:root`**, redéfinies sous
-  `prefers-color-scheme: dark`. Une couleur écrite en dur ne suivra pas le thème sombre.
+- **Toutes les couleurs passent par les variables de `:root`**, redéfinies pour le
+  thème sombre. Une couleur écrite en dur ne suivra ni le thème sombre ni l'impression.
 
 ## Pièges connus
 
@@ -70,12 +70,28 @@ silencieusement.
   le ré-autorise à se couper, sinon le navigateur produit une page blanche. Tout
   nouveau poste contenant des missions hérite automatiquement de cette exception ;
   tout autre bloc long ajouté hors `.entry` devra recevoir son propre traitement.
-- **Toute nouvelle rubrique doit être vérifiée en mode `print`,** pas seulement à l'écran.
+- **Le thème sombre a trois portes d'entrée, à tenir synchronisées.** La palette
+  sombre est déclarée deux fois dans `style.css` — sous
+  `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` pour la
+  préférence système, et sous `:root[data-theme="dark"]` pour le choix explicite du
+  sélecteur. `print.css` la neutralise une troisième fois pour revenir au noir sur
+  blanc. **Ajouter une variable de couleur, c'est l'ajouter dans les trois blocs.**
+  Le `:not([data-theme="light"])` n'est pas décoratif : sans lui, un utilisateur en
+  système sombre ne pourrait pas forcer le thème clair. Et les sélecteurs de
+  `print.css` recopient la spécificité des blocs sombres, sinon ils ne l'emportent pas.
+- **Le sélecteur de thème vit dans `index.html`, pas dans un fichier JS.** Deux petits
+  scripts inline : celui du `<head>` applique `data-theme` depuis `localStorage`
+  **avant le premier rendu** (le déplacer en fin de page ferait clignoter la page en
+  clair au chargement) ; celui de fin de document gère le clic, l'écriture dans
+  `localStorage` et le libellé accessible. Sans choix enregistré, la page suit le
+  système et le bouton se resynchronise sur l'évènement `change` du `matchMedia`.
+- **Toute nouvelle rubrique doit être vérifiée en mode `print`,** pas seulement à
+  l'écran, et dans les deux thèmes.
 
 ## Points ouverts
 
-- Quatre `TODO` subsistent dans `index.html` (email, ville, URL LinkedIn) — en
-  attente d'arbitrage sur ce qui doit être public.
+- Plus aucun `TODO` dans `index.html`. L'adresse email a été volontairement retirée
+  de l'entête : le contact passe par LinkedIn et GitHub.
 - Les dates du PDF source ont été corrigées par l'auteur et font foi :
   AKABI `10/2022 – 10/2025` (le PDF disait 10/2026) et BGL BNP Paribas
   début `10/2025` (le PDF disait 11/2026). Ne pas les « rectifier » depuis le PDF.
