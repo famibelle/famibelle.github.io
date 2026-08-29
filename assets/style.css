@@ -1,0 +1,236 @@
+/* Écran. Les styles d'impression vivent dans print.css. */
+
+:root {
+  --ink:        #1a1a1a;
+  --ink-soft:   #52525b;
+  --ink-faint:  #71717a;
+  --paper:      #fdfdfc;
+  --rule:       #e4e4e7;
+  --accent:     #1d4ed8;
+
+  --measure:    46rem;
+  --gap:        1.9rem;
+
+  --font-body:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:       #ededed;
+    --ink-soft:  #b4b4bb;
+    --ink-faint: #8f8f98;
+    --paper:     #131316;
+    --rule:      #2c2c31;
+    --accent:    #7aa2f7;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.cv {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* ── Identité ───────────────────────────────────────── */
+
+.identity { margin-bottom: 2.5rem; }
+
+.identity h1 {
+  margin: 0;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.headline {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* ── Sections ───────────────────────────────────────── */
+
+section { margin-top: var(--gap); }
+
+section h2 {
+  margin: 0 0 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+section > p { margin: 0; }
+
+/* ── Entrées (expérience, formation) ────────────────── */
+
+.entry + .entry { margin-top: 1.8rem; }
+
+.entry-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 1rem;
+  align-items: baseline;
+}
+
+.entry-role {
+  grid-column: 1;
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.entry-org {
+  grid-column: 1;
+  margin: 0.1rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+}
+
+.entry-dates {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.bullets {
+  margin: 0.6rem 0 0;
+  padding-left: 1.15rem;
+}
+
+.bullets li { margin-bottom: 0.25rem; }
+
+/* Distinction, prix, référence publique liée à une mission. */
+.note {
+  margin: 0.6rem 0 0;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+/* Technologies employées, en fin d'entrée. */
+.stack {
+  margin: 0.5rem 0 0;
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+}
+
+/* ── Missions client imbriquées dans un poste ───────── */
+
+.missions {
+  margin-top: 1.4rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule);
+}
+
+.missions-label {
+  margin: 0 0 1.1rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.entry--sub + .entry--sub { margin-top: 1.35rem; }
+
+.entry--sub .entry-role  { font-size: 0.96rem; }
+.entry--sub .entry-org   { font-size: 0.89rem; }
+.entry--sub .entry-dates { font-size: 0.82rem; }
+.entry--sub .bullets     { font-size: 0.94rem; }
+
+/* ── Sous-titres et listes simples (formation) ──────── */
+
+.sub-heading {
+  margin: 1.3rem 0 0.5rem;
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
+.sub-heading:first-of-type { margin-top: 0; }
+
+.plain {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.plain li { margin-bottom: 0.3rem; }
+
+/* ── Listes clé/valeur (compétences, langues) ───────── */
+
+.skills {
+  display: grid;
+  grid-template-columns: minmax(7rem, 11rem) 1fr;
+  gap: 0.6rem 1.25rem;
+  margin: 0;
+}
+
+.skills dt {
+  font-weight: 600;
+  font-size: 0.94rem;
+}
+
+.skills dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+}
+
+/* ── Petits écrans ──────────────────────────────────── */
+
+@media (max-width: 34rem) {
+  .cv { padding-top: 2.25rem; }
+  .identity h1 { font-size: 1.75rem; }
+
+  .entry-head { grid-template-columns: 1fr; }
+  .entry-dates { grid-column: 1; grid-row: auto; margin-top: 0.15rem; }
+
+  .missions { padding-left: 0.8rem; }
+
+  /* L'employeur et la ville passent sur deux lignes plutôt que
+     de déborder avec leur séparateur. */
+  .sep { display: none; }
+  .entry-place { display: block; }
+
+  .skills { grid-template-columns: 1fr; gap: 0.15rem; }
+  .skills dd { margin-bottom: 0.6rem; }
+}

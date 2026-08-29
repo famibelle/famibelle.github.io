@@ -1,0 +1,70 @@
+/* Impression / export PDF (Ctrl+P → « Enregistrer au format PDF »).
+   Chargé via media="print", donc ces règles ne s'appliquent jamais à l'écran. */
+
+@page {
+  size: A4;
+  margin: 14mm 15mm;
+}
+
+body {
+  background: #fff;
+  color: #000;
+  font-size: 10pt;
+  line-height: 1.38;
+}
+
+.cv {
+  max-width: none;
+  padding: 0;
+}
+
+/* Les liens perdent leur couleur mais gardent leur URL en clair. */
+a { color: #000; text-decoration: none; }
+
+a[href^="http"]::after {
+  content: " (" attr(href) ")";
+  font-size: 0.85em;
+  color: #444;
+  word-break: break-all;
+}
+
+.identity { margin-bottom: 1.2rem; }
+.identity h1 { font-size: 19pt; }
+.headline { font-size: 11pt; }
+.contact { gap: 0.2rem 0.9rem; font-size: 8.5pt; }
+
+section { margin-top: 1rem; }
+
+section h2 {
+  margin-bottom: 0.6rem;
+  font-size: 8.5pt;
+  border-bottom-color: #999;
+  color: #000;
+}
+
+.entry + .entry { margin-top: 1rem; }
+.entry--sub + .entry--sub { margin-top: 0.8rem; }
+
+.entry-role { font-size: 10.5pt; }
+.entry-org, .entry-dates, .stack, .skills dd, .note { color: #333; }
+.note { border-left-color: #999; }
+
+.missions { margin-top: 0.8rem; border-left-color: #ccc; }
+.missions-label { margin-bottom: 0.7rem; }
+
+.bullets { margin-top: 0.4rem; }
+.bullets li { margin-bottom: 0.12rem; }
+
+.skills { gap: 0.4rem 1rem; }
+
+/* Pagination : ne jamais couper une entrée ni orpheliner un titre.
+   Exception : un poste qui contient des missions dépasse une page A4 —
+   lui interdire la coupure produirait une page blanche, donc on l'autorise. */
+.entry             { break-inside: avoid; page-break-inside: avoid; }
+.entry:has(.missions) { break-inside: auto;  page-break-inside: auto; }
+
+section h2         { break-after: avoid; page-break-after: avoid; }
+.entry-head        { break-after: avoid; page-break-after: avoid; }
+.missions-label    { break-after: avoid; page-break-after: avoid; }
+.sub-heading       { break-after: avoid; page-break-after: avoid; }
+.identity          { break-after: avoid; page-break-after: avoid; }
