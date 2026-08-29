@@ -78,7 +78,7 @@ silencieusement.
   attente d'arbitrage sur ce qui doit être public.
 - Les dates du PDF source ont été corrigées par l'auteur et font foi :
   AKABI `10/2022 – 10/2025` (le PDF disait 10/2026) et BGL BNP Paribas
-  début `10/2026` (le PDF disait 11/2026). Ne pas les « rectifier » depuis le PDF.
+  début `10/2025` (le PDF disait 11/2026). Ne pas les « rectifier » depuis le PDF.
 
 ## Déploiement
 
