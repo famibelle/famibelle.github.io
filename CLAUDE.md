@@ -57,6 +57,9 @@ silencieusement.
   sur deux colonnes (une seule sous 34rem), avec `.project-name`, `.project-tag`,
   `.project-desc` et l'optionnel `.project-links`. La sélection est ordonnée par
   volume de commits réels de l'auteur, bots exclus (`git shortlog -sn --all`).
+  Le titre pointe vers le **site GitHub Pages** du projet quand il en existe un qui
+  répond (`gh api repos/famibelle/<repo>/pages` puis vérifier en 200 : `horoscope-ia`
+  a Pages activé mais en `errored`), et retombe sur le dépôt GitHub sinon.
 - **Les dates vont dans `<time datetime="AAAA-MM">`.**
 - **Compétences et langues utilisent `dl.skills`** (paires `dt`/`dd`), pas des listes.
 - **Toutes les couleurs passent par les variables de `:root`**, redéfinies pour le
