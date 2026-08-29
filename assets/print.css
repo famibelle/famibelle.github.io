@@ -57,11 +57,22 @@ section h2 {
 
 .skills { gap: 0.4rem 1rem; }
 
+.projects { gap: 0.55rem; }
+.project { padding: 0.55rem 0.7rem; border-color: #bbb; }
+.project-name { font-size: 10pt; }
+.project-tag { font-size: 8pt; color: #555; }
+.project-desc { font-size: 8.8pt; color: #333; }
+.project-links { font-size: 8pt; }
+
+/* Les URL en clair après chaque lien feraient exploser les cartes projet. */
+.project a[href^="http"]::after { content: none; }
+
 /* Pagination : ne jamais couper une entrée ni orpheliner un titre.
    Exception : un poste qui contient des missions dépasse une page A4 —
    lui interdire la coupure produirait une page blanche, donc on l'autorise. */
 .entry             { break-inside: avoid; page-break-inside: avoid; }
 .entry:has(.missions) { break-inside: auto;  page-break-inside: auto; }
+.project           { break-inside: avoid; page-break-inside: avoid; }
 
 section h2         { break-after: avoid; page-break-after: avoid; }
 .entry-head        { break-after: avoid; page-break-after: avoid; }

@@ -5,7 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Objet du dépôt
 
 CV personnel de Medhi Famibelle (AI Product/Architect & Strategy Manager), publié
-comme page statique sur GitHub Pages. Le contenu est rédigé **en anglais** ; les
+comme page statique sur GitHub Pages. Sert aussi de vitrine : une section projets
+renvoie vers les dépôts personnels. Le contenu est rédigé **en anglais** ; les
 commentaires du code et la documentation sont en français.
 
 Source du contenu : un CV PDF fourni hors dépôt. Le HTML en est la seule copie
@@ -52,6 +53,10 @@ silencieusement.
   `article.entry.entry--sub`. C'est le cas du poste AKABI, qui regroupe six missions.
 - **`.note`** sert aux prix et références publiques d'une mission ; **`.stack`** à la
   liste des technologies, toujours en dernier dans l'entrée.
+- **Les projets n'utilisent pas `.entry`** mais `ul.projects` > `li.project`, en cartes
+  sur deux colonnes (une seule sous 34rem), avec `.project-name`, `.project-tag`,
+  `.project-desc` et l'optionnel `.project-links`. La sélection est ordonnée par
+  volume de commits réels de l'auteur, bots exclus (`git shortlog -sn --all`).
 - **Les dates vont dans `<time datetime="AAAA-MM">`.**
 - **Compétences et langues utilisent `dl.skills`** (paires `dt`/`dd`), pas des listes.
 - **Toutes les couleurs passent par les variables de `:root`**, redéfinies sous
@@ -77,9 +82,11 @@ silencieusement.
 
 ## Déploiement
 
-GitHub Pages sert la racine de la branche par défaut. Il n'y a pas de workflow
-GitHub Actions : un `git push` suffit.
+Cible : le **site utilisateur** `famibelle.github.io`, servi à la racine du domaine.
+Cela impose que le dépôt GitHub s'appelle exactement `famibelle.github.io`, quel que
+soit le nom du dossier local. GitHub Pages sert la racine de la branche par défaut ;
+il n'y a pas de workflow GitHub Actions, un `git push` suffit.
 
-État actuel : **aucun remote git n'est configuré et le dépôt n'a aucun commit.**
-Avant le premier déploiement, créer le dépôt GitHub, ajouter le remote, pousser,
-puis activer Pages dans *Settings → Pages* (source : branche, dossier `/`).
+État actuel : **aucun remote git n'est configuré.** Avant le premier déploiement,
+créer le dépôt, ajouter le remote, pousser, puis activer Pages dans
+*Settings → Pages* (source : branche, dossier `/`).

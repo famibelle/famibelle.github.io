@@ -178,6 +178,47 @@ section > p { margin: 0; }
 .entry--sub .entry-dates { font-size: 0.82rem; }
 .entry--sub .bullets     { font-size: 0.94rem; }
 
+/* ── Projets (vitrine) ──────────────────────────────── */
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project {
+  padding: 0.95rem 1.05rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+
+.project-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.project-tag {
+  margin: 0.2rem 0 0;
+  color: var(--ink-faint);
+  font-size: 0.82rem;
+}
+
+.project-desc {
+  margin: 0.55rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.project-links {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+}
+
 /* ── Sous-titres et listes simples (formation) ──────── */
 
 .sub-heading {
@@ -225,6 +266,8 @@ section > p { margin: 0; }
   .entry-dates { grid-column: 1; grid-row: auto; margin-top: 0.15rem; }
 
   .missions { padding-left: 0.8rem; }
+
+  .projects { grid-template-columns: 1fr; }
 
   /* L'employeur et la ville passent sur deux lignes plutôt que
      de déborder avec leur séparateur. */
