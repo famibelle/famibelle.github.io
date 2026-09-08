@@ -1,0 +1,72 @@
+# Génère le PDF du CV, puis déploie la page et le PDF ensemble sur GitHub Pages.
+#
+# PRÉREQUIS : Settings → Pages → Source doit être réglé sur « GitHub Actions ».
+# Tant que la source reste « Deploy from a branch », ce workflow s'exécutera mais
+# ne publiera rien.
+
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois. On ne coupe pas un déploiement en cours :
+# l'interrompre laisserait le site dans un état indéterminé.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer Playwright et Chromium
+        run: |
+          npm install --no-save "playwright@^1.40"
+          npx playwright install --with-deps chromium
+
+      - name: Générer le PDF
+        run: node scripts/render-pdf.mjs medhi-famibelle-cv.pdf
+
+      # Copie explicite plutôt que `path: .` : évite d'empaqueter .git, .github
+      # et scripts/ dans l'artefact publié. À compléter si le site gagne un fichier.
+      - name: Assembler le site
+        run: |
+          mkdir -p _site
+          cp -r index.html assets medhi-famibelle-cv.pdf _site/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      # Doublon volontaire : récupérer le PDF depuis l'onglet Actions sans
+      # attendre le déploiement, utile pour vérifier la pagination.
+      - name: Conserver le PDF comme artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdf
+          path: medhi-famibelle-cv.pdf
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

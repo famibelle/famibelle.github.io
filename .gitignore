@@ -1,2 +1,7 @@
 # Instructions destinées à Claude Code — non publiées
 CLAUDE.md
+
+# PDF généré par la CI, jamais versionné (voir .github/workflows/pages.yml)
+medhi-famibelle-cv.pdf
+_site/
+node_modules/

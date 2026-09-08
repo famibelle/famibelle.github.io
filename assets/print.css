@@ -21,8 +21,10 @@
   --accent:    #000;
 }
 
-/* Le sélecteur de thème n'a aucun sens sur le papier. */
-.theme-toggle { display: none; }
+/* Le sélecteur de thème n'a aucun sens sur le papier. Le lien de téléchargement
+   non plus : c'est le PDF lui-même qui est en train d'être produit. */
+.theme-toggle,
+.contact-pdf { display: none; }
 
 body {
   background: #fff;
@@ -45,6 +47,15 @@ a[href^="http"]::after {
   color: #444;
   word-break: break-all;
 }
+
+/* Sauf dans les notes et les liens de projet : ce sont des citations, et leurs
+   URL sont longues (archive.org, articles à identifiant). Les imprimer noyait
+   le texte — la note nomme déjà sa source, c'est ce qui compte sur papier. */
+.note a[href^="http"]::after,
+.project-links a[href^="http"]::after { content: none; }
+
+/* Compensation : les liens cités restent repérables à l'œil. */
+.note a { text-decoration: underline; text-underline-offset: 2px; }
 
 .identity { margin-bottom: 1.2rem; }
 .identity h1 { font-size: 19pt; }
