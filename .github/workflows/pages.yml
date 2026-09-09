@@ -37,15 +37,18 @@ jobs:
           npm install --no-save "playwright@^1.40"
           npx playwright install --with-deps chromium
 
-      - name: Générer le PDF
-        run: node scripts/render-pdf.mjs medhi-famibelle-cv.pdf
+      - name: Générer les PDF
+        run: |
+          node scripts/render-pdf.mjs index.html medhi-famibelle-cv.pdf
+          node scripts/render-pdf.mjs fde.html   medhi-famibelle-fde.pdf
 
       # Copie explicite plutôt que `path: .` : évite d'empaqueter .git, .github
       # et scripts/ dans l'artefact publié. À compléter si le site gagne un fichier.
       - name: Assembler le site
         run: |
           mkdir -p _site
-          cp -r index.html assets medhi-famibelle-cv.pdf _site/
+          cp -r index.html fde.html assets _site/
+          cp medhi-famibelle-cv.pdf medhi-famibelle-fde.pdf _site/
 
       - uses: actions/configure-pages@v5
 
@@ -55,11 +58,13 @@ jobs:
 
       # Doublon volontaire : récupérer le PDF depuis l'onglet Actions sans
       # attendre le déploiement, utile pour vérifier la pagination.
-      - name: Conserver le PDF comme artefact
+      - name: Conserver les PDF comme artefact
         uses: actions/upload-artifact@v4
         with:
           name: cv-pdf
-          path: medhi-famibelle-cv.pdf
+          path: |
+            medhi-famibelle-cv.pdf
+            medhi-famibelle-fde.pdf
 
   deploy:
     needs: build

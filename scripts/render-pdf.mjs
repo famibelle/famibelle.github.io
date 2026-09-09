@@ -6,7 +6,9 @@
 // son propre format (Letter) et ses propres marges, et le rendu CI différerait de
 // celui obtenu par Ctrl+P dans le navigateur.
 //
-// Usage : node scripts/render-pdf.mjs [chemin-de-sortie.pdf]
+// Usage : node scripts/render-pdf.mjs <page.html> <sortie.pdf>
+//   node scripts/render-pdf.mjs index.html medhi-famibelle-cv.pdf
+//   node scripts/render-pdf.mjs fde.html   medhi-famibelle-fde.pdf
 
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
@@ -14,7 +16,8 @@ import { readFile } from 'node:fs/promises';
 import { extname, join, normalize, resolve } from 'node:path';
 
 const ROOT = resolve(process.cwd());
-const OUT = process.argv[2] ?? 'medhi-famibelle-cv.pdf';
+const PAGE = process.argv[2] ?? 'index.html';
+const OUT = process.argv[3] ?? 'medhi-famibelle-cv.pdf';
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -54,14 +57,14 @@ const { port } = server.address();
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage();
-  await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle' });
+  await page.goto(`http://127.0.0.1:${port}/${PAGE}`, { waitUntil: 'networkidle' });
 
   // print.css neutralise déjà le thème sombre, mais on force le schéma clair :
   // le PDF doit être noir sur blanc quel que soit l'environnement d'exécution.
   await page.emulateMedia({ media: 'print', colorScheme: 'light' });
 
   await page.pdf({ path: OUT, printBackground: true, preferCSSPageSize: true });
-  console.log(`PDF écrit : ${OUT}`);
+  console.log(`PDF écrit : ${PAGE} -> ${OUT}`);
 } finally {
   await browser.close();
   server.close();

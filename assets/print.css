@@ -104,6 +104,10 @@ section h2 {
    couper repousse tout un bloc et laisse un quart de page blanc. On l'autorise
    à se scinder : elle reste précédée de son en-tête grâce à break-after. */
 .entry--sub        { break-inside: auto;  page-break-inside: auto; }
+/* Même pathologie dans la page FDE : le bloc « Earlier » résume douze ans, dépasse
+   la place restante en fin de page et sautait entier. Scopé pour ne pas toucher
+   la pagination du CV principal. */
+#earlier .entry    { break-inside: auto;  page-break-inside: auto; }
 .entry:has(.missions) { break-inside: auto;  page-break-inside: auto; }
 .project           { break-inside: avoid; page-break-inside: avoid; }
 
