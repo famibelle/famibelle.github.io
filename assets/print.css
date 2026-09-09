@@ -3,7 +3,7 @@
 
 @page {
   size: A4;
-  margin: 14mm 15mm;
+  margin: 12mm 14mm;
 }
 
 /* Le papier est blanc quoi qu'il arrive : on rétablit la palette claire même si
@@ -29,8 +29,8 @@
 body {
   background: #fff;
   color: #000;
-  font-size: 10pt;
-  line-height: 1.38;
+  font-size: 9.3pt;
+  line-height: 1.32;
 }
 
 .cv {
@@ -62,7 +62,7 @@ a[href^="http"]::after {
 .headline { font-size: 11pt; }
 .contact { gap: 0.2rem 0.9rem; font-size: 8.5pt; }
 
-section { margin-top: 1rem; }
+section { margin-top: 0.75rem; }
 
 section h2 {
   margin-bottom: 0.6rem;
@@ -71,8 +71,8 @@ section h2 {
   color: #000;
 }
 
-.entry + .entry { margin-top: 1rem; }
-.entry--sub + .entry--sub { margin-top: 0.8rem; }
+.entry + .entry { margin-top: 0.7rem; }
+.entry--sub + .entry--sub { margin-top: 0.6rem; }
 
 .entry-role { font-size: 10.5pt; }
 .entry-org, .entry-dates, .stack, .skills dd, .note { color: #333; }
@@ -100,6 +100,10 @@ section h2 {
    Exception : un poste qui contient des missions dépasse une page A4 —
    lui interdire la coupure produirait une page blanche, donc on l'autorise. */
 .entry             { break-inside: avoid; page-break-inside: avoid; }
+/* Une mission cliente haute (bullets + note de sources) qui refuse de se
+   couper repousse tout un bloc et laisse un quart de page blanc. On l'autorise
+   à se scinder : elle reste précédée de son en-tête grâce à break-after. */
+.entry--sub        { break-inside: auto;  page-break-inside: auto; }
 .entry:has(.missions) { break-inside: auto;  page-break-inside: auto; }
 .project           { break-inside: avoid; page-break-inside: avoid; }
 
