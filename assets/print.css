@@ -55,7 +55,8 @@ a[href^="http"]::after {
 .project-links a[href^="http"]::after { content: none; }
 
 /* Compensation : les liens cités restent repérables à l'œil. */
-.note a { text-decoration: underline; text-underline-offset: 2px; }
+.note a,
+.project-links a { text-decoration: underline; text-underline-offset: 2px; }
 
 .identity { margin-bottom: 1.2rem; }
 .identity h1 { font-size: 19pt; }
